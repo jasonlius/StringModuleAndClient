@@ -60,16 +60,47 @@ int Str_compare(const char s1[] , const char s2[])
     }
 }
 
+//A help function in order to implement function of *Str_search 
+int Str_contain(const char s1[] , const char s2[])
+{
+    size_t index = 0;
+    int cmpResult = 0;
+    assert(s1 != NULL && s2 != NULL);
+    while (s1[index] != '\0' && s2[index] != '\0')
+    {
+        if (s1[index] > s2[index])
+        {
+            return(cmpResult + 1);
+        } else if (s1[index] < s2[index])
+        {
+          return (cmpResult - 1);
+        } else 
+        {
+           cmpResult = 0;
+        }
+        index ++; 
+    }
+    if (s2[index] == '\0')
+    {
+        return cmpResult;
+    }
+    return 1; 
+}
 char *Str_search( const char s1[] , const char s2[])
 {
     size_t index = 0;
     assert(s1 != NULL && s2 != NULL);
 
     if(Str_getLength(s2) == 0)
+    {
         return (char *)s1;
+    }else if(Str_getLength(s2) > Str_getLength(s1))
+    {
+        return NULL;    
+    }
     while (s1[index] != '\0')
     {
-        if (!Str_compare(&s1[index] , s2))
+        if (!Str_contain(&s1[index] , s2))
         {
             return (char *)&s1[index];
         }
