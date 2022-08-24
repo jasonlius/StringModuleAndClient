@@ -12,7 +12,7 @@ size_t Str_getLength(const char string[])
     return strlength;
 }
 
-char *Str_copy(char Src[] , char Dst[])
+char *Str_copy(char Dst[] , const char Src[])
 {
     size_t Index = 0 ;
     assert(Src != NULL && Dst != NULL);
@@ -25,7 +25,7 @@ char *Str_copy(char Src[] , char Dst[])
     return Dst;
 }
 
-char *Str_concat(char s1[] , char s2[])
+char *Str_concat(char s1[] , const char s2[])
 {
     size_t s1Length = Str_getLength(s1);
     size_t s2Length = Str_getLength(s2);
@@ -41,38 +41,39 @@ char *Str_concat(char s1[] , char s2[])
 int Str_compare(const char s1[] , const char s2[])
 {
     size_t index = 0;
-    int cmpResult=0;
+    int cmpResult = 0;
     assert(s1 != NULL && s2 != NULL);
 
-    while (s1[index] !='\0' && s2[index] !='\0')
+    while (1)
     {
         if (s1[index] > s2[index])
         {
             return(cmpResult + 1);
         } else if (s1[index] < s2[index])
         {
-            return cmpResult - 1;
-        } else
+          return (cmpResult - 1);
+        } else if(s1[index] == '\0' && s2[index] == '\0') 
         {
-            cmpResult =0;
+            return (cmpResult = 0);
         }
+        index ++; 
     }
-    return cmpResult;
 }
 
-char *Str_search( char s1[] ,  char s2[])
+char *Str_search( const char s1[] , const char s2[])
 {
-    size_t index = 0 ;
+    size_t index = 0;
     assert(s1 != NULL && s2 != NULL);
 
     if(Str_getLength(s2) == 0)
-        return s1;
+        return (char *)s1;
     while (s1[index] != '\0')
     {
         if (!Str_compare(&s1[index] , s2))
         {
-            return &s1[index];
+            return (char *)&s1[index];
         }
+        index ++;
     }
        return NULL;
 }
