@@ -91,20 +91,17 @@ char *Str_search( const char s1[] , const char s2[])
     size_t index = 0;
     assert(s1 != NULL && s2 != NULL);
 
-    if(Str_getLength(s2) == 0)
-    {
+    if(Str_getLength(s2) == 0){
         return (char *)s1;
-    }else if(Str_getLength(s2) > Str_getLength(s1))
-    {
+    }else if(Str_getLength(s2) > Str_getLength(s1)){
         return NULL;    
-    }
-    while (s1[index] != '\0')
-    {
-        if (!Str_contain(&s1[index] , s2))
+    }else{
+        while (s1[index] != '\0')
         {
-            return (char *)&s1[index];
+            if (!Str_contain(&s1[index] , s2))
+                return (char *)&s1[index];
+            index ++;
         }
-        index ++;
-    }
-       return NULL;
+        return NULL;
+    } 
 }
