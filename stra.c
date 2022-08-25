@@ -25,17 +25,17 @@ char *Str_copy(char Dst[] , const char Src[])
     return Dst;
 }
 
-char *Str_concat(char s1[] , const char s2[])
+char *Str_concat(char Dst[] , const char Src[])
 {
-    size_t s1Length = Str_getLength(s1);
-    size_t s2Length = Str_getLength(s2);
-    assert(s1 != NULL && s2 != NULL);
+    size_t DstLength = Str_getLength(Dst);
+    size_t SrcLength = Str_getLength(Src);
+    assert(Dst != NULL && Src != NULL);
 
-    for (size_t i = 0; i <= s2Length; i++)
+    for (size_t i = 0; i <= SrcLength; i++)
     {
-        s1[s1Length+i] =s2[i]; 
+        Dst[DstLength+i] =Src[i]; 
     }
-    return s1;
+    return Dst;
 }
 
 int Str_compare(const char s1[] , const char s2[])
