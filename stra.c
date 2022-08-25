@@ -64,20 +64,14 @@ int Str_compare(const char s1[] , const char s2[])
 int Str_contain(const char s1[] , const char s2[])
 {
     size_t index = 0;
-    int cmpResult = 0;
+    int cmpResult = 1;
     assert(s1 != NULL && s2 != NULL);
     while (s1[index] != '\0' && s2[index] != '\0')
     {
-        if (s1[index] > s2[index])
-        {
-            return(cmpResult + 1);
-        } else if (s1[index] < s2[index])
-        {
-          return (cmpResult - 1);
-        } else 
+        if (s1[index] == s2[index])
         {
            cmpResult = 0;
-        }
+        } else return 1;
         index ++; 
     }
     if (s2[index] == '\0')
@@ -86,6 +80,7 @@ int Str_contain(const char s1[] , const char s2[])
     }
     return 1; 
 }
+
 char *Str_search( const char s1[] , const char s2[])
 {
     size_t index = 0;
