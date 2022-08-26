@@ -34,12 +34,19 @@ static size_t replaceAndWrite(const char *pcLine,
    {
       while (Str_search(pcLine , pcFrom ) != NULL)
       {
+         //------------------------------------------------------
+         //当我们找到函数中有我们需要的替换的字符串时，我们定位到这个字符串
+         //从这个位置将字符串截取成两段，分别保存起来为新的数组，然后将我们
+         //需要替换的字符串与我们刚刚保存的新的数组拼接起来。
+         //-------------------------------------------------------
          pcContain =Str_search(pcLine , pcFrom );
          *pcContain = '\0';
-         Str_copy(headPcline , pcLine);
-         Str_copy(tailPcline , pcContain+pcFromLength);
-         Str_concat( Str_concat(headPcline ,pcTo),tailPcline);
-         Str_copy((char *)pcLine , headPcline);
+         (void)Str_copy(headPcline , pcLine);
+         (void)Str_copy(tailPcline , pcContain+pcFromLength);
+         (void)Str_concat( Str_concat(headPcline ,pcTo),tailPcline);
+         (void)Str_concat( Str_concat(headPcline ,pcTo),tailPcline);
+         (void)Str_copy((char *)pcLine , headPcline);
+         //替换成功之后将替换次数++
          placeAcount ++;
       }     
    }
@@ -79,7 +86,12 @@ int main(int argc, char *argv[])
    pcTo = argv[2];
 
    while (fgets(acLine, MAX_LINE_SIZE, stdin) != NULL){
-      replaceAndWrite(acLine,pcFrom,"犇");
+      //-----------------------------------------------
+      //首先替换为中间字符“犇”的原因是为了该避免算法缺陷
+      //这个算法无法替换相同的字符串 比如将 11 替换为111，
+      //由于111里面本身包含11如果不进行中间替换会报错
+      //------------------------------------------------
+      (void)replaceAndWrite(acLine,pcFrom,"犇");
       uReplaceCount +=replaceAndWrite(acLine, "犇" , pcTo);
       printf("%s",acLine);
    }
