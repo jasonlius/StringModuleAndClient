@@ -1,5 +1,6 @@
 #include<stddef.h>
 #include<assert.h>
+#include"str.h"
 size_t Str_getLength(const char string[])
 {
     size_t strlength = 0;
